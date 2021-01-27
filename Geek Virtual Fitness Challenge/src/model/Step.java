@@ -9,12 +9,13 @@ import javax.persistence.Table;
 @Entity
 @Table
 public class Step {
-	//point de passage
+	// point de passage
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private int id;
+	private long id;
+
 	private String name;
-	
+
 	public Step() {
 		super();
 	}
@@ -23,6 +24,21 @@ public class Step {
 		super();
 		this.name = name;
 	}
-	
-	
+
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
 }

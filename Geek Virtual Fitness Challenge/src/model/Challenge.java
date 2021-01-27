@@ -6,22 +6,60 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+
+
 @Entity
 @Table
 public class Challenge {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private int id;
-	private Segment segments;
+	private long id;
+	private Mode mode;
+	private int maxPlayer;
+	private String name;
 	
 	public Challenge() {
 		
 	}
 
-	public Challenge(Segment segments) {
+	public Challenge(Mode mode, int maxPlayer, String name) {
 		super();
-		this.segments = segments;
+		this.mode = mode;
+		this.maxPlayer = maxPlayer;
+		this.name = name;
 	}
-	
+
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
+
+	public Mode getMode() {
+		return mode;
+	}
+
+	public void setMode(Mode mode) {
+		this.mode = mode;
+	}
+
+	public int getMaxPlayer() {
+		return maxPlayer;
+	}
+
+	public void setMaxPlayer(int maxPlayer) {
+		this.maxPlayer = maxPlayer;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
 	
 }

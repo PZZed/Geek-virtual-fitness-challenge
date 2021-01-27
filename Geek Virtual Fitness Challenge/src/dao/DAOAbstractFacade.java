@@ -18,11 +18,11 @@ import javax.persistence.criteria.CriteriaQuery;
  */
 public abstract class DAOAbstractFacade<T> {
 	
-	private static final String DB_NAME = "gvfc";
+	private static final String UNIT_NAME = "gvfc";
 
-	@PersistenceUnit(unitName = DB_NAME)
-	private EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(DB_NAME);
-	@PersistenceContext(unitName = DB_NAME)
+	@PersistenceUnit(unitName = UNIT_NAME)
+	private EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(UNIT_NAME);
+	@PersistenceContext(unitName = UNIT_NAME)
 	private EntityManager em;
 
 	private Class<T> classeEntite;
