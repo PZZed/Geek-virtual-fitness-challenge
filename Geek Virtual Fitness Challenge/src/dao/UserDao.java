@@ -17,16 +17,17 @@ public class UserDao extends DAOAbstractFacade<User> {
 	}
 
 	public List<User> getUser(String username, String password) {
-		EntityManager em = Persistence.createEntityManagerFactory("gvfc").createEntityManager();
-		
+		//EntityManager em = Persistence.createEntityManagerFactory("gvfc").createEntityManager();
+		EntityManager em = getEntityManager();
 		CriteriaQuery<User> cq = em.getCriteriaBuilder().createQuery(User.class);
 		Root<User> rt = cq.from(User.class);
 		cq.select(rt);
 		
-		cq.where(getEntityManager().getCriteriaBuilder().equal(rt.get("username"), username));
-		cq.where(getEntityManager().getCriteriaBuilder().equal(rt.get("password"), password));
+		cq.where(getEntityManager().getCriteriaBuilder().equal(rt.get("username"), username),getEntityManager().getCriteriaBuilder().equal(rt.get("password"), password));
+		//cq.where(getEntityManager().getCriteriaBuilder().equal(rt.get("password"), password));
 		Query q = getEntityManager().createQuery(cq);
 		
+		//em.close();
 		return  q.getResultList();
 
 	}

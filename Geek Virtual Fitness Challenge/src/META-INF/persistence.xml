@@ -7,6 +7,10 @@
 		name="gvfc" transaction-type="JTA">
 		<jta-data-source>gvfc_resource</jta-data-source>
 		<class>model.User</class>
+		<class>model.Challenge</class>
+		<class>model.Step</class>
+		<class>model.Checkpoint</class>
+		<class>model.Segment</class>
 
 	</persistence-unit>
 </persistence>
