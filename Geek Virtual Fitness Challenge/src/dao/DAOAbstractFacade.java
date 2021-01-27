@@ -3,8 +3,12 @@ package dao;
 import java.util.ArrayList;
 import java.util.Vector;
 
+import javax.transaction.*;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.FlushModeType;
 import javax.persistence.Persistence;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceUnit;
@@ -16,6 +20,7 @@ import javax.persistence.criteria.CriteriaQuery;
  * Base : GVFC 
  * Password : VCPej4PtQQcN
  */
+
 public abstract class DAOAbstractFacade<T> {
 	
 	private static final String UNIT_NAME = "gvfc";
@@ -52,12 +57,59 @@ public abstract class DAOAbstractFacade<T> {
 	 * Methode de creation d'un objet (ajout dans la base).
 	 * 
 	 * @param entite
+	 * @throws NamingException 
+	 * @throws SystemException 
+	 * @throws NotSupportedException 
+	 * @throws HeuristicRollbackException 
+	 * @throws HeuristicMixedException 
+	 * @throws RollbackException 
+	 * @throws IllegalStateException 
+	 * @throws SecurityException 
 	 */
-	public T create(T entite) {
+	
+	public T create(T entite)  {
+		
+		UserTransaction transaction = null;
+		try {
+			transaction = (UserTransaction)new InitialContext().lookup("java:comp/UserTransaction");
+			transaction.begin();
+			EntityManager em = getEntityManager();
+			em.persist(entite);
+			em.joinTransaction();
+			transaction.commit();
+		} catch (NamingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SecurityException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalStateException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (RollbackException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (HeuristicMixedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (HeuristicRollbackException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SystemException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (NotSupportedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		/*
 		getEntityManager().getTransaction().begin();
 		getEntityManager().persist(entite);
 		getEntityManager().flush();
 		getEntityManager().getTransaction().commit();
+		*/
 		return entite;
 	}
 
