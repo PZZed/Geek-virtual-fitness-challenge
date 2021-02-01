@@ -1,5 +1,6 @@
 package model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -9,13 +10,19 @@ import javax.persistence.Table;
 @Entity
 @Table
 public class Segment {
+	
+
 	// segment
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
-
+	@Column
 	private long idSource;
-
+	@Column
+	private long idDest;
+	@Column
+	private long idObstacle;
+	
 	public long getId() {
 		return id;
 	}
@@ -48,8 +55,11 @@ public class Segment {
 		this.idObstacle = idObstacle;
 	}
 
-	private long idDest;
-	private long idObstacle;
+	@Override
+	public String toString() {
+		return "Segment [id=" + id + ", idSource=" + idSource + ", idDest=" + idDest + ", idObstacle=" + idObstacle
+				+ "]";
+	}
 
 	public Segment() {
 		super();
