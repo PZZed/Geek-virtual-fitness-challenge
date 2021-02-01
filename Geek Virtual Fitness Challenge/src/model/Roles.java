@@ -1,9 +1,7 @@
 package model;
 
 
-public class Roles {
-
-	
-	private long userId;
-	
+public enum Roles {
+	ADMIN,
+	USER
 }

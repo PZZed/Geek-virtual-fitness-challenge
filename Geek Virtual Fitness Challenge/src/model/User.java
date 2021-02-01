@@ -1,6 +1,7 @@
 package model;
 
-import javax.persistence.Column;
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -21,14 +22,19 @@ public class User {
 
 	private String mail;
 
-	public User() {
-		
-	}
+	private Roles role;
 	
-	public User(String username, String password, String mail) {
+	private List<Challenge> registeredChallenge;
+	
+	public User() {
+	}
+
+	public User(String username, String password, String mail, Roles role, List<Challenge> registeredChallenge) {
 		this.username = username;
 		this.password = password;
 		this.mail = mail;
+		this.role = role;
+		this.registeredChallenge = registeredChallenge;
 	}
 
 	public long getId() {
@@ -62,5 +68,25 @@ public class User {
 	public void setMail(String mail) {
 		this.mail = mail;
 	}
+	
+	public Roles getRole() {
+		return role;
+	}
 
+	public void setRole(Roles role) {
+		this.role = role;
+	}
+
+	@Override
+	public String toString() {
+		return "User [id=" + id + ", username=" + username + ", password=" + password + ", mail=" + mail + "]";
+	}
+
+	public List<Challenge> getRegisteredChallenge() {
+		return registeredChallenge;
+	}
+
+	public void setRegisteredChallenge(List<Challenge> registeredChallenge) {
+		this.registeredChallenge = registeredChallenge;
+	}
 }

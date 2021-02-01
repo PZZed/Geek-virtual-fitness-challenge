@@ -3,12 +3,24 @@ package dao;
 import java.util.ArrayList;
 import java.util.Vector;
 
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceUnit;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.transaction.HeuristicMixedException;
+import javax.transaction.HeuristicRollbackException;
+import javax.transaction.NotSupportedException;
+import javax.transaction.RollbackException;
+import javax.transaction.SystemException;
+import javax.transaction.UserTransaction;
+
+import com.sun.xml.ws.api.tx.at.Transactional;
+
+import model.User;
 
 /**
  * Nom du serveur : mysql.iutrs.unistra.fr 
@@ -24,7 +36,8 @@ public abstract class DAOAbstractFacade<T> {
 	private EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(UNIT_NAME);
 	@PersistenceContext(unitName = UNIT_NAME)
 	private EntityManager em;
-
+	
+	UserTransaction userTransaction;
 	private Class<T> classeEntite;
 
 	/**
@@ -34,6 +47,12 @@ public abstract class DAOAbstractFacade<T> {
 	 */
 	public DAOAbstractFacade(Class<T> classeEntite) {
 		this.classeEntite = classeEntite;
+		try {
+			this.userTransaction = (UserTransaction)new InitialContext().lookup("java:comp/UserTransaction");
+			System.out.println("User transaction "+userTransaction);
+		} catch (NamingException e) {
+			e.printStackTrace();
+		}
 	}
 
 	/**
@@ -52,12 +71,18 @@ public abstract class DAOAbstractFacade<T> {
 	 * Methode de creation d'un objet (ajout dans la base).
 	 * 
 	 * @param entite
+	 * @throws SystemException 
+	 * @throws NotSupportedException 
+	 * @throws HeuristicRollbackException 
+	 * @throws HeuristicMixedException 
+	 * @throws RollbackException 
+	 * @throws IllegalStateException 
+	 * @throws SecurityException 
 	 */
-	public T create(T entite) {
-		getEntityManager().getTransaction().begin();
+	public T create(T entite) throws NotSupportedException, SystemException, SecurityException, IllegalStateException, RollbackException, HeuristicMixedException, HeuristicRollbackException {
+		userTransaction.begin();
 		getEntityManager().persist(entite);
-		getEntityManager().flush();
-		getEntityManager().getTransaction().commit();
+		userTransaction.commit();
 		return entite;
 	}
 
@@ -65,11 +90,18 @@ public abstract class DAOAbstractFacade<T> {
 	 * Methode de modification d'un objet.
 	 * 
 	 * @param entite
+	 * @throws SystemException 
+	 * @throws NotSupportedException 
+	 * @throws HeuristicRollbackException 
+	 * @throws HeuristicMixedException 
+	 * @throws RollbackException 
+	 * @throws IllegalStateException 
+	 * @throws SecurityException 
 	 */
-	public void edit(T entite) {
-		getEntityManager().getTransaction().begin();
+	public void edit(T entite) throws NotSupportedException, SystemException, SecurityException, IllegalStateException, RollbackException, HeuristicMixedException, HeuristicRollbackException {
+		userTransaction.begin();
 		getEntityManager().merge(entite);
-		getEntityManager().getTransaction().commit();
+		userTransaction.commit();
 	}
 
 	/**
