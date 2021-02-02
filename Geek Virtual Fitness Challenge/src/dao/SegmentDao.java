@@ -44,5 +44,13 @@ public class SegmentDao extends DAOAbstractFacade<Segment> {
 		
 		
 	}
+	
+	public void delete(long id) {
+		Segment rem = find(id);
+		System.out.println(rem);
+		remove(rem);
+		
+		
+	}
 
 }

@@ -8,6 +8,7 @@ import javax.transaction.HeuristicRollbackException;
 import javax.transaction.NotSupportedException;
 import javax.transaction.RollbackException;
 import javax.transaction.SystemException;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -42,6 +43,14 @@ public class SegmentRoute {
 		return Response.status(Response.Status.OK).entity(add).build();
 		//return null;
 	}
-		
+
+	@DELETE
+	@Path("/delete")
+	public Response delete(@QueryParam("id") long id) throws SecurityException, IllegalStateException, NamingException, NotSupportedException, SystemException, RollbackException, HeuristicMixedException, HeuristicRollbackException {
+		//controller.delete(src, dst);
+		controller.delete(id);
+		return Response.status(Response.Status.OK).entity("Supprimé").build();
+		//return null;
+	}
 		
 }

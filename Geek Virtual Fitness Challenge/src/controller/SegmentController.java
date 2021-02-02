@@ -29,18 +29,20 @@ public class SegmentController {
 		segmentDao = new SegmentDao(Segment.class);
 	}
 	
-	public List<Segment> getAllStep(){
-		return segmentDao.findAll();
-	}
 	
-	public Segment getSegment(int id) {
-		return segmentDao.find(id);
+	public Segment getSegment(long l) {
+		return segmentDao.find(l);
 		
 	}
 
 	public Segment add(String src, String dst) throws SecurityException, IllegalStateException, NamingException, NotSupportedException, SystemException, RollbackException, HeuristicMixedException, HeuristicRollbackException {
 		// TODO Auto-generated method stub
 		return segmentDao.add(src,dst);
+	}
+	
+	public void delete(long id) throws SecurityException, IllegalStateException, NamingException, NotSupportedException, SystemException, RollbackException, HeuristicMixedException, HeuristicRollbackException {
+		// TODO Auto-generated method stub
+		segmentDao.delete(id);
 	}
 
 	public List<Segment> findAll() {
