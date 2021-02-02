@@ -41,7 +41,7 @@ public class ChallengeController {
 		return dao.find(id);
 	}
 
-	public Challenge create(String name, Mode mode, int maxPlayer, String desc, List<Integer> segmentsIds) {
+	public Challenge create(String name, Mode mode, int maxPlayer, String desc, List<Integer> segmentsIds, String url) {
 
 		// récupérer tout les segments a partir de leur ids
 		List<Segment> seg = new ArrayList<Segment>();
@@ -50,7 +50,7 @@ public class ChallengeController {
 		}
 
 		// création du challenge
-		Challenge chall = new Challenge(name, mode, maxPlayer, seg, desc);
+		Challenge chall = new Challenge(name, mode, maxPlayer, seg, desc, url);
 		try {
 			return dao.create(chall);
 		} catch (SecurityException | IllegalStateException | NotSupportedException | SystemException | RollbackException

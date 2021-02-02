@@ -2,6 +2,7 @@ package model;
 
 import java.util.List;
 
+//github.com/PZZed/Geek-virtual-fitness-challenge.git
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -11,9 +12,11 @@ import javax.persistence.Table;
 @Entity
 @Table
 public class Segment {
+	
+
 	// segment
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 
 	private Step source;
@@ -28,6 +31,7 @@ public class Segment {
 		this.dest = dest;
 		this.obstacles = obstacles;
 	}
+
 	public long getId() {
 		return id;
 	}
@@ -53,6 +57,8 @@ public class Segment {
 		this.obstacles = obstacles;
 	}
 
-	
+
+
+
 
 }

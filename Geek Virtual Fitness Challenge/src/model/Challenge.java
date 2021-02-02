@@ -72,13 +72,14 @@ public class Challenge {
 		this.description = description;
 	}
 
-	public Challenge(String name, Mode mode, int maxPlayer, List<Segment> segments, String description) {
+	public Challenge(String name, Mode mode, int maxPlayer, List<Segment> segments, String description,String url) {
 		super();
 		this.mode = mode;
 		this.maxPlayer = maxPlayer;
 		this.name = name;
 		this.segments = segments;
 		this.description = description;
+		this.url = url;
 	}
 
 	public String getUrl() {

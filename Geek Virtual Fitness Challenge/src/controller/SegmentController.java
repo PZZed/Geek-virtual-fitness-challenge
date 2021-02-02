@@ -3,6 +3,13 @@ package controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.naming.NamingException;
+import javax.transaction.HeuristicMixedException;
+import javax.transaction.HeuristicRollbackException;
+import javax.transaction.NotSupportedException;
+import javax.transaction.RollbackException;
+import javax.transaction.SystemException;
+
 import dao.ObstacleDao;
 import dao.SegmentDao;
 import model.Checkpoint;
@@ -42,5 +49,24 @@ public class SegmentController {
 		checkPoints.addAll(obstacles);
 		seg.setObstacles(checkPoints);
 		return seg;
+	}
+	
+	public List<Segment> getAllStep(){
+		return dao.findAll();
+	}
+	
+	public Segment getSegment(int id) {
+		return dao.find(id);
+		
+	}
+
+	public Segment add(String src, String dst) throws SecurityException, IllegalStateException, NamingException, NotSupportedException, SystemException, RollbackException, HeuristicMixedException, HeuristicRollbackException {
+		// TODO Auto-generated method stub
+		return dao.add(src,dst);
+	}
+
+	public List<Segment> findAll() {
+		// TODO Auto-generated method stub
+		return dao.findAll();
 	}
 }

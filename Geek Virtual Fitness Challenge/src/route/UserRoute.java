@@ -40,12 +40,13 @@ public class UserRoute {
 		return Response.status(Response.Status.OK).entity(UserController.getInstance().getUser(id)).build();
 
 	}
-	
+
 	/**
 	 * Create an user.
+	 * 
 	 * @param username the user username.
 	 * @param password the user password.
-	 * @param mail The user mail.
+	 * @param mail     The user mail.
 	 * @return the user created.
 	 */
 	@POST
@@ -53,6 +54,10 @@ public class UserRoute {
 	public Response createUser(@QueryParam("username") String username, @QueryParam("password") String password,
 			@QueryParam("mail") String mail) {
 
+		username = "leslie";
+		password = "maxime";
+		mail = "nico";
+		
 		// check si les champs pas nul
 		if (username == null || password == null || mail == null)
 			return Response.status(Status.NOT_ACCEPTABLE).build();
@@ -66,7 +71,7 @@ public class UserRoute {
 			return Response.status(Status.CONFLICT).entity("Problem").build();
 
 	}
-	
+
 	@GET
 	@Path("/delete/{id}")
 	public Response deleteUser(@PathParam("id") long id) {
@@ -109,10 +114,10 @@ public class UserRoute {
 	public Response getRegisteredChallenge(@PathParam("id") long id) {
 		return Response.status(Status.OK).entity(UserController.getInstance().getRegisteredChallenge(id)).build();
 	}
-	
+
 	@POST
 	@Path("/login")
 	public Response login(@QueryParam("username") String username, @QueryParam("password") String password) {
-		return Response.status(Status.OK).entity(UserController.getInstance().login(username,password)).build();
+		return Response.status(Status.OK).entity(UserController.getInstance().login(username, password)).build();
 	}
 }

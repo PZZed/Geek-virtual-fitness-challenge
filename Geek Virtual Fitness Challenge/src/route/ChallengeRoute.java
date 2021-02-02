@@ -26,8 +26,8 @@ public class ChallengeRoute {
 	@POST
 	@Path("/create")
 	public Response create(@QueryParam("name") String name, @QueryParam("maxPlayer") int maxPlayer,
-			@QueryParam("description") String description, @QueryParam("idSegments") List<Integer> segmentsIDs) {
-		Challenge chall = controller.create(name, Mode.SOLO, maxPlayer, description, segmentsIDs);
+			@QueryParam("description") String description, @QueryParam("idSegments") List<Integer> segmentsIDs, @QueryParam("url")String url) {
+		Challenge chall = controller.create(name, Mode.SOLO, maxPlayer, description, segmentsIDs,url);
 		System.out.println(chall);
 		return Response.status(Status.OK).entity(chall).build();
 	}
