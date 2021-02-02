@@ -48,8 +48,9 @@ public class SegmentRoute {
 	@Path("/delete")
 	public Response delete(@QueryParam("id") long id) throws SecurityException, IllegalStateException, NamingException, NotSupportedException, SystemException, RollbackException, HeuristicMixedException, HeuristicRollbackException {
 		//controller.delete(src, dst);
+		Segment seg = controller.getSegment(id);
 		controller.delete(id);
-		return Response.status(Response.Status.OK).entity("Supprimé").build();
+		return Response.status(Response.Status.OK).entity("Suppression de :"+seg).build();
 		//return null;
 	}
 		

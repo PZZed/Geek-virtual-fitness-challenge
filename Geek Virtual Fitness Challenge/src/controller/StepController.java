@@ -48,4 +48,9 @@ public class StepController {
 		// TODO Auto-generated method stub
 		return stepDao.findAll();
 	}
+
+	public void remove(int id) {
+		// TODO Auto-generated method stub
+		stepDao.remove(getStep(id));
+	}
 }

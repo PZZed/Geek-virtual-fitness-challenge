@@ -6,6 +6,7 @@ import javax.transaction.HeuristicRollbackException;
 import javax.transaction.NotSupportedException;
 import javax.transaction.RollbackException;
 import javax.transaction.SystemException;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -40,6 +41,16 @@ private StepController controller;
 		controller.add(step);
 		return Response.status(Response.Status.OK).entity(step.getName()).build();
 		
+	}
+	
+	@DELETE
+	@Path("/delete")
+	public Response delete(@QueryParam("id") int id) {
+		Step step = controller.getStep(id);
+		controller.remove(id);
+		
+		
+		return Response.status(Response.Status.OK).entity("suppression de :"+step).build();
 	}
 	
 	
