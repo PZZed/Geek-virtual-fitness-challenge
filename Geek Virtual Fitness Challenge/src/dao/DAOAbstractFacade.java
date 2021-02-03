@@ -131,7 +131,6 @@ public abstract class DAOAbstractFacade<T> {
 	 */
 	public void remove(T entite) {
 		getEntityManager().remove(getEntityManager().merge(entite));
-		
 	}
 
 	/**
