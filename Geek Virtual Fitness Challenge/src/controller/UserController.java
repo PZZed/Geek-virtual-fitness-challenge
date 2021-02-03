@@ -2,6 +2,13 @@ package controller;
 
 import java.util.List;
 
+import javax.naming.NamingException;
+import javax.transaction.HeuristicMixedException;
+import javax.transaction.HeuristicRollbackException;
+import javax.transaction.NotSupportedException;
+import javax.transaction.RollbackException;
+import javax.transaction.SystemException;
+
 import dao.UserDao;
 import model.User;
 
@@ -36,7 +43,7 @@ public class UserController {
 
 	}
 
-	public User create(String username, String password, String mail) {
+	public User create(String username, String password, String mail) throws SecurityException, IllegalStateException, NamingException, NotSupportedException, SystemException, RollbackException, HeuristicMixedException, HeuristicRollbackException {
 		User res = new User(username, password, mail);
 		return userDao.create(res);
 	}
