@@ -46,4 +46,9 @@ public class StepController {
 	public List<Step> findAll() {
 		return stepDao.findAll();
 	}
+
+	public void remove(int id) {
+		// TODO Auto-generated method stub
+		stepDao.remove(getStep(id));
+	}
 }

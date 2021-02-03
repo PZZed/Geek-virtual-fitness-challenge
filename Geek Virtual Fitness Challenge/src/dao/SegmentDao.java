@@ -22,7 +22,10 @@ public class SegmentDao extends DAOAbstractFacade<Segment> {
 	}
 
 	
-	public Segment add(String src, String dst) throws SecurityException, IllegalStateException, NotSupportedException, SystemException, RollbackException, HeuristicMixedException, HeuristicRollbackException {
+	
+	
+	
+	public Segment add(String src, String dst) {
 		EntityManager em = getEntityManager();
 		CriteriaQuery<Step> cq = em.getCriteriaBuilder().createQuery(Step.class);
 		Root<Step> rt = cq.from(Step.class);
@@ -39,11 +42,25 @@ public class SegmentDao extends DAOAbstractFacade<Segment> {
 		 List<Step> steps = q.getResultList();
 		System.out.println("---------------------------------");
 		System.out.println(steps);
-			
+		
 		Segment res = new Segment(steps.get(0),steps.get(1), null);
 		//System.out.println(res);
 		
-		return create(res);
+		try {
+			return create(res);
+		} catch (SecurityException | IllegalStateException | NotSupportedException | SystemException | RollbackException
+				| HeuristicMixedException | HeuristicRollbackException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+		
+	}
+	
+	public void delete(long id) {
+		Segment rem = find(id);
+		System.out.println(rem);
+		remove(rem);
 		
 		
 	}

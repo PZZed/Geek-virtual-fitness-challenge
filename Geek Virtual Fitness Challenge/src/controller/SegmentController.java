@@ -84,4 +84,15 @@ public class SegmentController {
 		}
 		return null;
 	}
+	
+	public Segment getSegment(long l) {
+		return dao.find(l);
+		
+	}
+
+	
+	public void delete(long id) throws SecurityException, IllegalStateException, NamingException, NotSupportedException, SystemException, RollbackException, HeuristicMixedException, HeuristicRollbackException {
+		// TODO Auto-generated method stub
+		dao.delete(id);
+	}
 }
