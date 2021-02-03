@@ -26,10 +26,21 @@ public class ChallengeRoute {
 	@POST
 	@Path("/create")
 	public Response create(@QueryParam("name") String name, @QueryParam("maxPlayer") int maxPlayer,
-			@QueryParam("description") String description, @QueryParam("idSegments") List<Integer> segmentsIDs, @QueryParam("url")String url) {
-		Challenge chall = controller.create(name, Mode.SOLO, maxPlayer, description, segmentsIDs,url);
+			@QueryParam("description") String description, @QueryParam("idSegments") List<Integer> segmentsIDs,
+			@QueryParam("url") String url) {
+		Challenge chall = controller.create(name, Mode.SOLO, maxPlayer, description, segmentsIDs, url);
 		System.out.println(chall);
 		return Response.status(Status.OK).entity(chall).build();
+	}
+
+	@GET
+	@Path("/create/{name}/{maxPlayer}/{description}/{url}")
+	public Response createChall(@PathParam("name") String name, @PathParam("maxPlayer") int maxPlayer,
+			@PathParam("description") String description, @PathParam("url") String url) {
+		// if user is admin
+
+		return Response.status(Status.OK).entity(controller.create(name, Mode.SOLO, maxPlayer, description, null, url))
+				.build();
 	}
 
 	@GET
@@ -55,22 +66,29 @@ public class ChallengeRoute {
 		return Response.status(Status.OK).build();
 	}
 
-	@POST
-	@Path("{id}/modify/image")
-	public Response modifyImage(@PathParam("id") long id, @QueryParam("url") String url) {
-		return Response.status(Status.OK).entity(controller.modifyImage(id,url)).build();
+	@GET
+	@Path("{id}/modify/image/{url}")
+	public Response modifyImage(@PathParam("id") long id, @PathParam("url") String url) {
+		return Response.status(Status.OK).entity(controller.modifyImage(id, url)).build();
 	}
-	
-	@POST
-	@Path("{id}/modify/description")
-	public Response modifyDescription(@PathParam("id") long id, @QueryParam("description") String desc) {
-		return Response.status(Status.OK).entity(controller.modifyDescription(id,desc)).build();
+
+	@GET
+	@Path("{id}/modify/description/{description}")
+	public Response modifyDescription(@PathParam("id") long id, @PathParam("description") String desc) {
+		return Response.status(Status.OK).entity(controller.modifyDescription(id, desc)).build();
 	}
-	
+
 	@GET
 	@Path("{id}/remove/checkpoint/{idc}")
-	public Response removeCheckpoint(@PathParam("id")long id,@PathParam("idc")long idcheckpoint) {
-		controller.removeCheckpoint(id,idcheckpoint);
+	public Response removeCheckpoint(@PathParam("id") long id, @PathParam("idc") long idcheckpoint) {
+		controller.removeCheckpoint(id, idcheckpoint);
 		return Response.status(Status.OK).entity(true).build();
+	}
+
+	@GET
+	@Path("{id}/segment/add/{idseg}")
+	public Response addSegment(@PathParam("id") long id, @PathParam("idseg") long idSeg) {
+		Challenge chall = controller.addSegment(id, idSeg);
+		return Response.status(Status.OK).build();
 	}
 }

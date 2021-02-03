@@ -27,7 +27,7 @@ public class StepController {
 	}
 
 	private StepController() {
-		stepDao = new StepDao(Step.class);
+		stepDao = new StepDao();
 	}
 	
 	public List<Step> getAllStep(){
@@ -40,12 +40,10 @@ public class StepController {
 	}
 
 	public Step add(Step step) throws SecurityException, IllegalStateException, NamingException, NotSupportedException, SystemException, RollbackException, HeuristicMixedException, HeuristicRollbackException {
-		// TODO Auto-generated method stub
 		return stepDao.add(step);
 	}
 
 	public List<Step> findAll() {
-		// TODO Auto-generated method stub
 		return stepDao.findAll();
 	}
 }

@@ -39,7 +39,7 @@ public class SegmentDao extends DAOAbstractFacade<Segment> {
 		 List<Step> steps = q.getResultList();
 		System.out.println("---------------------------------");
 		System.out.println(steps);
-		
+			
 		Segment res = new Segment(steps.get(0),steps.get(1), null);
 		//System.out.println(res);
 		

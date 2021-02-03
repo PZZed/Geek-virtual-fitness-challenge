@@ -14,12 +14,19 @@ public class Challenge {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
+	
 	private Mode mode;
+	
 	private int maxPlayer;
+	
 	private String name;
+	
 	private List<Segment> segments;
+	
 	private String description;
+	
 	private String url; 
+	
 	public Challenge() {
 
 	}

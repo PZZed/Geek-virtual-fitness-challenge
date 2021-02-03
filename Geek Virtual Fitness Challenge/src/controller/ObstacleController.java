@@ -14,7 +14,10 @@ import model.Checkpoint;
 public class ObstacleController {
 	private static ObstacleController instance;
 	private ObstacleDao dao;
-	private ObstacleController() {}
+	private ObstacleController() {
+		dao = new ObstacleDao();
+		System.out.println(dao);
+	}
 	
 	public static ObstacleController getInstance() {
 		if(instance == null)

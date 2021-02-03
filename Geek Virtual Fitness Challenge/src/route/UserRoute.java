@@ -20,8 +20,8 @@ public class UserRoute {
 		controller = UserController.getInstance();
 	}
 
-	/***
-	 * 
+	/*** Ok
+	 * Get all the users.
 	 * @return All the users.
 	 */
 	@GET
@@ -29,8 +29,8 @@ public class UserRoute {
 		return Response.status(Response.Status.OK).entity(UserController.getInstance().findAll()).build();
 	}
 
-	/***
-	 * 
+	/*** Ok
+	 *  Get an user with its id.
 	 * @param id
 	 * @return a particular user.
 	 */
@@ -54,6 +54,8 @@ public class UserRoute {
 	public Response createUser(@QueryParam("username") String username, @QueryParam("password") String password,
 			@QueryParam("mail") String mail) {
 
+		
+		// QueryParam null ?
 		username = "leslie";
 		password = "maxime";
 		mail = "nico";
@@ -65,13 +67,24 @@ public class UserRoute {
 
 		// user est pas null --> mis dans la bdd
 		if (user != null)
-			return Response.status(Status.CREATED).entity(user.toString()).build();
+			return Response.status(Status.CREATED).entity(user).build();
 		else
 			// user est null
 			return Response.status(Status.CONFLICT).entity("Problem").build();
 
 	}
-
+	
+	@GET
+	@Path("create/{username}/{password}/{mail}")
+	public Response create(@PathParam("username")String username,@PathParam("password")String password,@PathParam("mail")String mail) {
+		return Response.status(Status.OK).entity(controller.create(username, password, mail)).build();
+	}
+	
+	/**
+	 * Delete the user. 
+	 * @param id
+	 * @return
+	 */
 	@GET
 	@Path("/delete/{id}")
 	public Response deleteUser(@PathParam("id") long id) {
@@ -80,9 +93,9 @@ public class UserRoute {
 	}
 
 	/**
-	 * 
-	 * @param id
-	 * @return
+	 * Promote an User to Admin
+	 * @param id the user id.
+	 * @return the user modified.
 	 */
 	@GET
 	@Path("/promote/{id}")
@@ -92,9 +105,9 @@ public class UserRoute {
 	}
 
 	/**
-	 * 
-	 * @param id
-	 * @param idChall
+	 * Subscribe a player to a challenge.
+	 * @param id of the player
+	 * @param idChall of the challenge
 	 * @return
 	 */
 	@GET
@@ -115,9 +128,11 @@ public class UserRoute {
 		return Response.status(Status.OK).entity(UserController.getInstance().getRegisteredChallenge(id)).build();
 	}
 
-	@POST
-	@Path("/login")
-	public Response login(@QueryParam("username") String username, @QueryParam("password") String password) {
+	@GET
+	@Path("/login/{username}/{password}")
+	public Response login(@PathParam("username") String username, @PathParam("password") String password) {
+		username = "leslie";
+		password = "maxime";
 		return Response.status(Status.OK).entity(UserController.getInstance().login(username, password)).build();
 	}
 }

@@ -1,8 +1,5 @@
 package dao;
 
-import java.util.List;
-
-import javax.naming.NamingException;
 import javax.transaction.HeuristicMixedException;
 import javax.transaction.HeuristicRollbackException;
 import javax.transaction.NotSupportedException;
@@ -14,8 +11,8 @@ import model.Step;
 
 public class StepDao extends DAOAbstractFacade<Step> {
 
-	public StepDao(Class<Step> classeEntite) {
-		super(classeEntite);
+	public StepDao() {
+		super(Step.class);
 		// TODO Auto-generated constructor stub
 	}
 

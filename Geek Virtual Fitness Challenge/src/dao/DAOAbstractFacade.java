@@ -33,7 +33,7 @@ public abstract class DAOAbstractFacade<T> {
 	@PersistenceContext(unitName = UNIT_NAME)
 	private EntityManager em;
 
-	UserTransaction userTransaction;
+	private UserTransaction userTransaction;
 	private Class<T> classeEntite;
 
 	/**
@@ -45,7 +45,6 @@ public abstract class DAOAbstractFacade<T> {
 		this.classeEntite = classeEntite;
 		try {
 			this.userTransaction = (UserTransaction) new InitialContext().lookup("java:comp/UserTransaction");
-			System.out.println("User transaction " + userTransaction);
 		} catch (NamingException e) {
 			e.printStackTrace();
 		}

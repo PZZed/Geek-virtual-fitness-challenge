@@ -105,6 +105,35 @@ public class ChallengeController {
 	public void removeCheckpoint(long id, long idcheckpoint) {
 		Challenge chall = getById(id);
 		
+		// get checkpoint 
+		
+		List<Segment>segs = chall.getSegments();
+		for(int i = 0 ; i < segs.size(); i++) {
+			if(segs.get(i).getDest().getId() == idcheckpoint);
+		}
+		
+		// case 1 the checkpoint is the first checkpoint
+		
+		// case 2 the checkpoint is the last checkpoint
+		
+		// case 3 the checkpoint is in the middle 
+		
+	}
+
+	public Challenge addSegment(long id, long idSeg) {
+		Segment seg = segDao.find(idSeg);
+		Challenge chall = dao.find(id);
+		chall.getSegments().add(seg);
+		try {
+			dao.edit(chall);
+		} catch (SecurityException | IllegalStateException | NotSupportedException | SystemException | RollbackException
+				| HeuristicMixedException | HeuristicRollbackException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return chall;
+		
+		
 	}
 
 }

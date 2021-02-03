@@ -12,7 +12,7 @@ import javax.persistence.Table;
 public class Step {
 	// point de passage
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
 	@Column
 	private String name;
