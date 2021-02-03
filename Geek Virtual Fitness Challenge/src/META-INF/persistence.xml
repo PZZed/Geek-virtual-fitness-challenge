@@ -10,6 +10,7 @@
 		<class>model.Segment</class>
 		<class>model.Step</class>
 		<class>model.User</class>
+		<class>model.Theme</class>
 		<properties>
              <property name="eclipselink.ddl-generation" value="create-tables"/>
 		</properties>

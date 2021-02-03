@@ -131,8 +131,6 @@ public class UserRoute {
 	@GET
 	@Path("/login/{username}/{password}")
 	public Response login(@PathParam("username") String username, @PathParam("password") String password) {
-		username = "leslie";
-		password = "maxime";
 		return Response.status(Status.OK).entity(UserController.getInstance().login(username, password)).build();
 	}
 }

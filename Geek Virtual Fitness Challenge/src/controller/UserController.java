@@ -108,7 +108,7 @@ public class UserController {
 		/**/
 		System.out.println(users.get(0).getClass());
 		for (User u : users) {
-			if(u.getUsername().equals(username))
+			if(u.getUsername().equals(username)&&u.getPassword().equals(password))
 				return true;
 		}
 		// java.lang.ClassCastException: class model.User cannot be cast to class
