@@ -57,7 +57,7 @@ public class SegmentDao extends DAOAbstractFacade<Segment> {
 		
 	}
 	
-	public void delete(long id) {
+	public void delete(long id) throws SecurityException, IllegalStateException, NotSupportedException, SystemException, RollbackException, HeuristicMixedException, HeuristicRollbackException {
 		Segment rem = find(id);
 		System.out.println(rem);
 		remove(rem);

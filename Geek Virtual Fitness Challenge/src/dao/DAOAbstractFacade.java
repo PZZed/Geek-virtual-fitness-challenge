@@ -105,9 +105,18 @@ public abstract class DAOAbstractFacade<T> {
 	 * Methode de suppression d'un objet.
 	 * 
 	 * @param entite
+	 * @throws SystemException 
+	 * @throws NotSupportedException 
+	 * @throws HeuristicRollbackException 
+	 * @throws HeuristicMixedException 
+	 * @throws RollbackException 
+	 * @throws IllegalStateException 
+	 * @throws SecurityException 
 	 */
-	public void remove(T entite) {
+	public void remove(T entite) throws NotSupportedException, SystemException, SecurityException, IllegalStateException, RollbackException, HeuristicMixedException, HeuristicRollbackException {
+		userTransaction.begin();
 		getEntityManager().remove(getEntityManager().merge(entite));
+		userTransaction.commit();
 	}
 
 	/**

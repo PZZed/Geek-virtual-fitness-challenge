@@ -78,7 +78,13 @@ public class UserController {
 	public void delete(long id) {
 		User user = getUser(id);
 		if (user != null)
-			userDao.remove(user);
+			try {
+				userDao.remove(user);
+			} catch (SecurityException | IllegalStateException | NotSupportedException | SystemException
+					| RollbackException | HeuristicMixedException | HeuristicRollbackException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 	}
 
 	public List<Challenge> getRegisteredChallenge(long id) {

@@ -10,9 +10,7 @@ import javax.transaction.RollbackException;
 import javax.transaction.SystemException;
 
 import dao.StepDao;
-import dao.UserDao;
 import model.Step;
-import model.User;
 
 public class StepController {
 
@@ -48,7 +46,11 @@ public class StepController {
 	}
 
 	public void remove(int id) {
-		// TODO Auto-generated method stub
-		stepDao.remove(getStep(id));
+		try {
+			stepDao.remove(getStep(id));
+		} catch (SecurityException | IllegalStateException | NotSupportedException | SystemException | RollbackException
+				| HeuristicMixedException | HeuristicRollbackException e) {
+			e.printStackTrace();
+		}
 	}
 }

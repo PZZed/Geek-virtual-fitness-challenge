@@ -83,7 +83,6 @@ public class ChallengeController {
 			dao.edit(chall);
 		} catch (SecurityException | IllegalStateException | NotSupportedException | SystemException | RollbackException
 				| HeuristicMixedException | HeuristicRollbackException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return chall;
@@ -128,7 +127,6 @@ public class ChallengeController {
 			dao.edit(chall);
 		} catch (SecurityException | IllegalStateException | NotSupportedException | SystemException | RollbackException
 				| HeuristicMixedException | HeuristicRollbackException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return chall;
