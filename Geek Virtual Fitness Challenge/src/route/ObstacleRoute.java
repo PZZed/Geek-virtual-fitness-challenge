@@ -17,11 +17,13 @@ public class ObstacleRoute {
 		controller = ObstacleController.getInstance();
 	}
 
+/** get all obastacle */
 	@GET
 	public Response getAll() {
 		return Response.status(Status.OK).entity(controller.findAll()).build();
 	}
-	
+
+/** create obstacle */	
 	@GET
 	@Path("/create/{name}/{action}")
 	public Response create(@PathParam("name")String name,@PathParam("action")String action) {

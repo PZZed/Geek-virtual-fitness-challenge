@@ -26,11 +26,13 @@ public class SegmentRoute {
 		controller = SegmentController.getInstance();
 	}
 
+/**get all segment */
 	@GET
 	public Response getAll() {
 		return Response.status(Response.Status.OK).entity(controller.findAll()).build();
 	}
 
+/**create a segment from two step */
 	@GET
 	@Path("/add/{src}/{dst}")
 	public Response create(@PathParam("src") String src, @PathParam("dst") String dst)
@@ -40,6 +42,7 @@ public class SegmentRoute {
 		return Response.status(Response.Status.OK).entity(add).build();
 	}
 
+/**create a segment from two step */
 	@GET
 	@Path("/create/{src}/{dst}")
 	public Response create(@PathParam("src") int src, @PathParam("dst") int dst)
@@ -48,12 +51,14 @@ public class SegmentRoute {
 		return Response.status(Status.OK).entity(controller.create(src, dst)).build();
 	}
 
+/** add obstacel in a segment */
 	@GET
 	@Path("/{id}/add/obstacle/{idObstacle}")
 	public Response addObstacle(@PathParam("id") long id, @PathParam("idObstacle") long idObstacle) {
 		return Response.status(Status.OK).entity(controller.addObstacle(idObstacle, idObstacle)).build();
 	}
 
+/**delete a segment */
 	@DELETE
 	@Path("/delete")
 	public Response delete(@QueryParam("id") long id)

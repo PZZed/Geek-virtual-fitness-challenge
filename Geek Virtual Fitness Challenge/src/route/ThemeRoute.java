@@ -17,15 +17,20 @@ public class ThemeRoute {
 		controller = ThemeController.getInstance();
 	}
 	
+	/**get all theme */
 	@GET
 	public Response getAll() {
 		return Response.status(Status.OK).entity(controller.getAll()).build();
 	}
+
+	/**vote for a theme */
 	@GET
 	@Path("/vote/{id}")
 	public Response vote(@PathParam("id")long id) {
 		return Response.status(Status.OK).entity(controller.vote(id)).build();	
 	}
+
+	/**create a theme */
 	@GET
 	@Path("/create/{desc}")
 	public Response create(@PathParam("desc") String desc) {

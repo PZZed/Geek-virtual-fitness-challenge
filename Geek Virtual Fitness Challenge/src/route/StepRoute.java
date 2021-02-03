@@ -25,13 +25,13 @@ private StepController controller;
 		controller = StepController.getInstance();
 	}
 	
-	
+	/**get all step */
 	@GET
 	public Response getAll() {
 		return Response.status(Response.Status.OK).entity(StepController.getInstance().findAll()).build();
 	}
 	
-	
+	/**create a step */
 	@GET
 	@Path("/add/{name}")
 	public Response create(@PathParam("name") String name) throws SecurityException, IllegalStateException, NamingException, NotSupportedException, SystemException, RollbackException, HeuristicMixedException, HeuristicRollbackException {
@@ -40,6 +40,7 @@ private StepController controller;
 		
 	}
 	
+	/**delete a step */
 	@DELETE
 	@Path("/delete")
 	public Response delete(@QueryParam("id") int id) {

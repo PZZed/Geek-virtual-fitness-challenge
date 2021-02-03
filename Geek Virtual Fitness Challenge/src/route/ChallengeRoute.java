@@ -23,6 +23,8 @@ public class ChallengeRoute {
 		controller = ChallengeController.getInstance();
 	}
 
+/**
+create challenge */
 	@POST
 	@Path("/create")
 	public Response create(@QueryParam("name") String name, @QueryParam("maxPlayer") int maxPlayer,
@@ -33,6 +35,9 @@ public class ChallengeRoute {
 		return Response.status(Status.OK).entity(chall).build();
 	}
 
+/**
+create challenge
+ */
 	@GET
 	@Path("/create/{name}/{maxPlayer}/{description}/{url}")
 	public Response createChall(@PathParam("name") String name, @PathParam("maxPlayer") int maxPlayer,
@@ -43,11 +48,13 @@ public class ChallengeRoute {
 				.build();
 	}
 
+/** get all challenge */
 	@GET
 	public Response getAll() {
 		return Response.status(Status.OK).entity(controller.getAll()).build();
 	}
 
+/** get challenge by id */
 	@GET
 	@Path("/{id}")
 	public Response getById(@PathParam("id") long id) {
@@ -65,26 +72,28 @@ public class ChallengeRoute {
 
 		return Response.status(Status.OK).build();
 	}
-
+/**edit image of challenge */
 	@GET
 	@Path("/{id}/modify/image/{url}")
 	public Response modifyImage(@PathParam("id") long id, @PathParam("url") String url) {
 		return Response.status(Status.OK).entity(controller.modifyImage(id, url)).build();
 	}
 
+/**edit description of challenge */
 	@GET
 	@Path("/{id}/modify/description/{description}")
 	public Response modifyDescription(@PathParam("id") long id, @PathParam("description") String desc) {
 		return Response.status(Status.OK).entity(controller.modifyDescription(id, desc)).build();
 	}
 
+/**remove checkpoint in a challenge */
 	@GET
 	@Path("/{id}/remove/checkpoint/{idc}")
 	public Response removeCheckpoint(@PathParam("id") long id, @PathParam("idc") long idcheckpoint) {
 		controller.removeCheckpoint(id, idcheckpoint);
 		return Response.status(Status.OK).entity(true).build();
 	}
-
+/**add a segment in a challenge */
 	@GET
 	@Path("/{id}/segment/add/{idseg}")
 	public Response addSegment(@PathParam("id") long id, @PathParam("idseg") long idSeg) {
