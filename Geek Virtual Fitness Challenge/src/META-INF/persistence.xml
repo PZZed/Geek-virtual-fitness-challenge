@@ -1,17 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<persistence version="2.2"
+<persistence version="2.1"
 	xmlns="http://xmlns.jcp.org/xml/ns/persistence"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_2.xsd">
-	<persistence-unit
-		name="gvfc" transaction-type="JTA">
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+	<persistence-unit name="gvfc" transaction-type="JTA">
 		<jta-data-source>gvfc_resource</jta-data-source>
-		<class>model.User</class>
 		<class>model.Challenge</class>
-		<class>model.Step</class>
 		<class>model.Checkpoint</class>
 		<class>model.Segment</class>
-
+		<class>model.Step</class>
+		<class>model.User</class>
+		<class>model.Theme</class>
+		<properties>
+             <property name="eclipselink.ddl-generation" value="create-tables"/>
+		</properties>
 	</persistence-unit>
 </persistence>
 

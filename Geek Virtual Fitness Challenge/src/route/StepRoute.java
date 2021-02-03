@@ -8,13 +8,12 @@ import javax.transaction.RollbackException;
 import javax.transaction.SystemException;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
-import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Response;
 
 import controller.StepController;
-import controller.UserController;
 import model.Step;
 
 @Path("/Step")
@@ -33,13 +32,11 @@ private StepController controller;
 	}
 	
 	
-	@POST
-	@Path("/add")
-	public Response create(@QueryParam("name") String name) throws SecurityException, IllegalStateException, NamingException, NotSupportedException, SystemException, RollbackException, HeuristicMixedException, HeuristicRollbackException {
+	@GET
+	@Path("/add/{name}")
+	public Response create(@PathParam("name") String name) throws SecurityException, IllegalStateException, NamingException, NotSupportedException, SystemException, RollbackException, HeuristicMixedException, HeuristicRollbackException {
 		Step step = new Step(name);
-		
-		controller.add(step);
-		return Response.status(Response.Status.OK).entity(step.getName()).build();
+		return Response.status(Response.Status.OK).entity(controller.add(step)).build();
 		
 	}
 	

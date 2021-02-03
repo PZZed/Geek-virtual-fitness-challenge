@@ -21,8 +21,6 @@ public class Checkpoint {
 	}
 
 	public Checkpoint(String name, String action) {
-		super();
-		
 		this.name = name;
 		this.action = action;
 	}

@@ -6,16 +6,22 @@ import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
+import javax.transaction.HeuristicMixedException;
+import javax.transaction.HeuristicRollbackException;
+import javax.transaction.NotSupportedException;
+import javax.transaction.RollbackException;
+import javax.transaction.SystemException;
 
 import model.Segment;
 import model.Step;
 
 public class SegmentDao extends DAOAbstractFacade<Segment> {
 
-	public SegmentDao(Class<Segment> classeEntite) {
-		super(classeEntite);
-		// TODO Auto-generated constructor stub
+	public SegmentDao() {
+		super(Segment.class);
 	}
+
+	
 	
 	
 	
@@ -37,11 +43,17 @@ public class SegmentDao extends DAOAbstractFacade<Segment> {
 		System.out.println("---------------------------------");
 		System.out.println(steps);
 		
-		Segment res = new Segment(steps.get(0).getId(),steps.get(1).getId(), 0);
+		Segment res = new Segment(steps.get(0),steps.get(1), null);
 		//System.out.println(res);
 		
-		return create(res);
-		
+		try {
+			return create(res);
+		} catch (SecurityException | IllegalStateException | NotSupportedException | SystemException | RollbackException
+				| HeuristicMixedException | HeuristicRollbackException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
 		
 	}
 	
