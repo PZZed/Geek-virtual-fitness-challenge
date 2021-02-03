@@ -8,7 +8,7 @@ import javax.ws.rs.core.Response.Status;
 
 import controller.ObstacleController;
 
-@Path("obstacle")
+@Path("/obstacle")
 public class ObstacleRoute {
 
 	private ObstacleController controller;

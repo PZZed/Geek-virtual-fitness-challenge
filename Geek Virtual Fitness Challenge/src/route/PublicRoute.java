@@ -3,7 +3,7 @@ package route;
 import javax.ws.rs.Path;
 import javax.ws.rs.core.Response;
 
-@Path("public")
+@Path("/public")
 public class PublicRoute {
 	
 	

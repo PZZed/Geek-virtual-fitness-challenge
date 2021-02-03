@@ -37,7 +37,6 @@ public class ThemeController {
 			return dao.create(t);
 		} catch (SecurityException | IllegalStateException | NotSupportedException | SystemException | RollbackException
 				| HeuristicMixedException | HeuristicRollbackException e) {
-			// TODO Au to-generated catch block
 			e.printStackTrace();
 		}
 		return null;

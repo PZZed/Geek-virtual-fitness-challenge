@@ -69,7 +69,6 @@ public class UserController {
 			userDao.edit(updated);
 		} catch (SecurityException | IllegalStateException | NotSupportedException | SystemException | RollbackException
 				| HeuristicMixedException | HeuristicRollbackException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return updated;
@@ -82,7 +81,6 @@ public class UserController {
 				userDao.remove(user);
 			} catch (SecurityException | IllegalStateException | NotSupportedException | SystemException
 					| RollbackException | HeuristicMixedException | HeuristicRollbackException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 	}
@@ -92,10 +90,11 @@ public class UserController {
 		return user.getRegisteredChallenge();
 	}
 
-	public void subscribeChallenge(long id, long idChall) {
+	public boolean subscribeChallenge(long id, long idChall) {
 		User user = getUser(id);
 		if (user != null) {
 			Challenge chall = challDao.find(idChall);
+			if(chall==null)return false;
 			List<Challenge> registerd = user.getRegisteredChallenge();
 			registerd.add(chall);
 			user.setRegisteredChallenge(registerd);
@@ -104,9 +103,11 @@ public class UserController {
 			} catch (SecurityException | IllegalStateException | NotSupportedException | SystemException
 					| RollbackException | HeuristicMixedException | HeuristicRollbackException e) {
 				e.printStackTrace();
+				return false;
 			}
-		}
-
+		} else
+			return false;
+		return true;
 	}
 
 	public boolean login(String username, String password) {
@@ -114,7 +115,7 @@ public class UserController {
 		/**/
 		System.out.println(users.get(0).getClass());
 		for (User u : users) {
-			if(u.getUsername().equals(username)&&u.getPassword().equals(password))
+			if (u.getUsername().equals(username) && u.getPassword().equals(password))
 				return true;
 		}
 		// java.lang.ClassCastException: class model.User cannot be cast to class
@@ -125,5 +126,7 @@ public class UserController {
 
 		return false;
 	}
+	
+	
 
 }

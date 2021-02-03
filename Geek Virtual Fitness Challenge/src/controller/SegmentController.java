@@ -67,7 +67,6 @@ public class SegmentController {
 	}
 
 	public List<Segment> findAll() {
-		// TODO Auto-generated method stub
 		return dao.findAll();
 	}
 
@@ -79,7 +78,6 @@ public class SegmentController {
 			return dao.create(seg);
 		} catch (SecurityException | IllegalStateException | NotSupportedException | SystemException | RollbackException
 				| HeuristicMixedException | HeuristicRollbackException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return null;
@@ -92,7 +90,6 @@ public class SegmentController {
 
 	
 	public void delete(long id) throws SecurityException, IllegalStateException, NamingException, NotSupportedException, SystemException, RollbackException, HeuristicMixedException, HeuristicRollbackException {
-		// TODO Auto-generated method stub
 		dao.delete(id);
 	}
 }

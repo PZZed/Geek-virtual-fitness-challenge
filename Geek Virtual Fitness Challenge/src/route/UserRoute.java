@@ -1,5 +1,7 @@
 package route;
 
+import java.util.List;
+
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -9,6 +11,7 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
 import controller.UserController;
+import model.Challenge;
 import model.User;
 
 @Path("/User")
@@ -16,12 +19,16 @@ public class UserRoute {
 
 	private UserController controller;
 
+	private static final Response FAILURE = Response.status(Status.CONFLICT).build();
+	private static final Response FORBIDDEN = Response.status(Status.FORBIDDEN).build();
+
 	public UserRoute() {
 		controller = UserController.getInstance();
 	}
 
-	/*** Ok
-	 * Get all the users.
+	/***
+	 * Ok Get all the users.
+	 * 
 	 * @return All the users.
 	 */
 	@GET
@@ -29,15 +36,20 @@ public class UserRoute {
 		return Response.status(Response.Status.OK).entity(UserController.getInstance().findAll()).build();
 	}
 
-	/*** Ok
-	 *  Get an user with its id.
+	/***
+	 * Ok Get an user with its id.
+	 * 
 	 * @param id
 	 * @return a particular user.
 	 */
 	@GET
 	@Path("/{id}")
 	public Response get(@PathParam("id") long id) {
-		return Response.status(Response.Status.OK).entity(UserController.getInstance().getUser(id)).build();
+		User u = UserController.getInstance().getUser(id);
+		if (u != null)
+			return Response.status(Response.Status.OK).entity(u).build();
+		else
+			return FAILURE;
 
 	}
 
@@ -54,34 +66,35 @@ public class UserRoute {
 	public Response createUser(@QueryParam("username") String username, @QueryParam("password") String password,
 			@QueryParam("mail") String mail) {
 
-		
 		// QueryParam null ?
-		username = "leslie";
-		password = "maxime";
-		mail = "nico";
-		
-		// check si les champs pas nul
+		username = "uesr";
+		password = "pass";
+		mail = "etst@test.fr";
+
 		if (username == null || password == null || mail == null)
 			return Response.status(Status.NOT_ACCEPTABLE).build();
 		User user = controller.create(username, password, mail);
 
-		// user est pas null --> mis dans la bdd
 		if (user != null)
 			return Response.status(Status.CREATED).entity(user).build();
 		else
-			// user est null
-			return Response.status(Status.CONFLICT).entity("Problem").build();
+			return FAILURE;
+	}
 
-	}
-	
 	@GET
-	@Path("create/{username}/{password}/{mail}")
-	public Response create(@PathParam("username")String username,@PathParam("password")String password,@PathParam("mail")String mail) {
-		return Response.status(Status.OK).entity(controller.create(username, password, mail)).build();
+	@Path("/create/{username}/{password}/{mail}")
+	public Response create(@PathParam("username") String username, @PathParam("password") String password,
+			@PathParam("mail") String mail) {
+		User u = controller.create(username, password, mail);
+		if (u == null)
+			return FAILURE;
+		else
+			return Response.status(Status.OK).entity(u).build();
 	}
-	
+
 	/**
-	 * Delete the user. 
+	 * Delete the user.
+	 * 
 	 * @param id
 	 * @return
 	 */
@@ -94,6 +107,7 @@ public class UserRoute {
 
 	/**
 	 * Promote an User to Admin
+	 * 
 	 * @param id the user id.
 	 * @return the user modified.
 	 */
@@ -101,20 +115,26 @@ public class UserRoute {
 	@Path("/promote/{id}")
 	public Response promoteUser(@PathParam("id") long id) {
 		User user = UserController.getInstance().promote(id);
-		return Response.status(Status.OK).entity(user).build();
+		if (user == null)
+			return FAILURE;
+		else
+			return Response.status(Status.OK).entity(user).build();
 	}
 
 	/**
 	 * Subscribe a player to a challenge.
-	 * @param id of the player
+	 * 
+	 * @param id      of the player
 	 * @param idChall of the challenge
 	 * @return
 	 */
 	@GET
-	@Path("{id}/subscribe/{idChall}")
+	@Path("/{id}/subscribe/{idChall}")
 	public Response registerChallenge(@PathParam("id") long id, @PathParam("idChall") long idChall) {
-		UserController.getInstance().subscribeChallenge(id, idChall);
-		return Response.status(Status.OK).build();
+		if (UserController.getInstance().subscribeChallenge(id, idChall))
+			return Response.status(Status.OK).build();
+		else
+			return FAILURE;
 	}
 
 	/**
@@ -123,14 +143,23 @@ public class UserRoute {
 	 * @return
 	 */
 	@GET
-	@Path("{id}/challenge/registered")
+	@Path("/{id}/challenge/registered")
 	public Response getRegisteredChallenge(@PathParam("id") long id) {
-		return Response.status(Status.OK).entity(UserController.getInstance().getRegisteredChallenge(id)).build();
+		List<Challenge> challs = UserController.getInstance().getRegisteredChallenge(id);
+		if (challs == null)
+			return FAILURE;
+		else
+			return Response.status(Status.OK).entity(challs).build();
 	}
 
 	@GET
 	@Path("/login/{username}/{password}")
 	public Response login(@PathParam("username") String username, @PathParam("password") String password) {
-		return Response.status(Status.OK).entity(UserController.getInstance().login(username, password)).build();
+		if (UserController.getInstance().login(username, password))
+			return Response.status(Status.OK).entity("Logged").build();
+		else
+			return FORBIDDEN;
 	}
+	
+	
 }

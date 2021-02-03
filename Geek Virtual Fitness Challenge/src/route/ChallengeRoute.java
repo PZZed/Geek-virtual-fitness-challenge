@@ -14,7 +14,7 @@ import controller.ChallengeController;
 import model.Challenge;
 import model.Mode;
 
-@Path("challenge")
+@Path("/challenge")
 public class ChallengeRoute {
 
 	private ChallengeController controller;
@@ -58,7 +58,7 @@ public class ChallengeRoute {
 	 * Modification
 	 *****************************************************/
 	@POST
-	@Path("{id}/modify/parameters")
+	@Path("/{id}/modify/parameters")
 	public Response modifyParameters(@PathParam("id") long id, @QueryParam("name") String name,
 			@QueryParam("maxPlayer") int maxPlayer, @QueryParam("mode") Mode mode) {
 		controller.update(id, name, maxPlayer, mode);
@@ -67,26 +67,26 @@ public class ChallengeRoute {
 	}
 
 	@GET
-	@Path("{id}/modify/image/{url}")
+	@Path("/{id}/modify/image/{url}")
 	public Response modifyImage(@PathParam("id") long id, @PathParam("url") String url) {
 		return Response.status(Status.OK).entity(controller.modifyImage(id, url)).build();
 	}
 
 	@GET
-	@Path("{id}/modify/description/{description}")
+	@Path("/{id}/modify/description/{description}")
 	public Response modifyDescription(@PathParam("id") long id, @PathParam("description") String desc) {
 		return Response.status(Status.OK).entity(controller.modifyDescription(id, desc)).build();
 	}
 
 	@GET
-	@Path("{id}/remove/checkpoint/{idc}")
+	@Path("/{id}/remove/checkpoint/{idc}")
 	public Response removeCheckpoint(@PathParam("id") long id, @PathParam("idc") long idcheckpoint) {
 		controller.removeCheckpoint(id, idcheckpoint);
 		return Response.status(Status.OK).entity(true).build();
 	}
 
 	@GET
-	@Path("{id}/segment/add/{idseg}")
+	@Path("/{id}/segment/add/{idseg}")
 	public Response addSegment(@PathParam("id") long id, @PathParam("idseg") long idSeg) {
 		Challenge chall = controller.addSegment(id, idSeg);
 		return Response.status(Status.OK).build();

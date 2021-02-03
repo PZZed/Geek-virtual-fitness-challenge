@@ -45,23 +45,25 @@ public class SegmentRoute {
 	public Response create(@PathParam("src") int src, @PathParam("dst") int dst)
 			throws SecurityException, IllegalStateException, NamingException, NotSupportedException, SystemException,
 			RollbackException, HeuristicMixedException, HeuristicRollbackException {
-		return Response.status(Status.OK).entity(controller.create(src,dst)).build();
+		return Response.status(Status.OK).entity(controller.create(src, dst)).build();
 	}
 
 	@GET
-	@Path("{id}/add/obstacle/{idObstacle}")
+	@Path("/{id}/add/obstacle/{idObstacle}")
 	public Response addObstacle(@PathParam("id") long id, @PathParam("idObstacle") long idObstacle) {
 		return Response.status(Status.OK).entity(controller.addObstacle(idObstacle, idObstacle)).build();
 	}
+
 	@DELETE
 	@Path("/delete")
-	public Response delete(@QueryParam("id") long id) throws SecurityException, IllegalStateException, NamingException, NotSupportedException, SystemException, RollbackException, HeuristicMixedException, HeuristicRollbackException {
-		//controller.delete(src, dst);
+	public Response delete(@QueryParam("id") long id)
+			throws SecurityException, IllegalStateException, NamingException, NotSupportedException, SystemException,
+			RollbackException, HeuristicMixedException, HeuristicRollbackException {
+		// controller.delete(src, dst);
 		Segment seg = controller.getSegment(id);
 		controller.delete(id);
-		return Response.status(Response.Status.OK).entity("Suppression de :"+seg).build();
-		//return null;
+		return Response.status(Response.Status.OK).entity("Suppression de :" + seg).build();
+		// return null;
 	}
 
-		
 }

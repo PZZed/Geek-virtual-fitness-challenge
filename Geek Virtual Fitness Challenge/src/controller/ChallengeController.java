@@ -45,6 +45,7 @@ public class ChallengeController {
 
 		// récupérer tout les segments a partir de leur ids
 		List<Segment> seg = new ArrayList<Segment>();
+		if(segmentsIds!=null)
 		for (Integer id : segmentsIds) {
 			seg.add(segDao.find(id));
 		}
