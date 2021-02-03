@@ -10,13 +10,13 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceUnit;
+import javax.transaction.RollbackException;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.transaction.HeuristicMixedException;
 import javax.transaction.HeuristicRollbackException;
-import javax.transaction.NotSupportedException;
-import javax.transaction.RollbackException;
 import javax.transaction.SystemException;
 import javax.transaction.UserTransaction;
+import javax.transaction.NotSupportedException;
 
 /**
  * Nom du serveur : mysql.iutrs.unistra.fr Gestion des bases :
@@ -92,10 +92,10 @@ public abstract class DAOAbstractFacade<T> {
 	 * @throws HeuristicMixedException
 	 * @throws RollbackException
 	 * @throws IllegalStateException
-	 * @throws SecurityException
+	 * @throws SecurityException 
 	 */
 	public void edit(T entite) throws NotSupportedException, SystemException, SecurityException, IllegalStateException,
-			RollbackException, HeuristicMixedException, HeuristicRollbackException {
+			RollbackException, HeuristicMixedException, HeuristicRollbackException  {
 		userTransaction.begin();
 		getEntityManager().merge(entite);
 		userTransaction.commit();
